@@ -38,7 +38,7 @@ class LoginForm extends Component {
   submitForm = async event => {
     event.preventDefault()
     const {userid, pin} = this.state
-    const userDetails = {userid, pin}
+    const userDetails = {user_id: userid, pin}
     const url = 'https://apis.ccbp.in/ebank/login'
     const options = {
       method: 'POST',
@@ -46,6 +46,7 @@ class LoginForm extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
+    console.log(data)
     if (response.ok === true) {
       this.onSubmitSuccess(data.jwt_token)
     } else {
@@ -55,6 +56,7 @@ class LoginForm extends Component {
 
   renderPinField = () => {
     const {pin} = this.state
+    console.log(pin)
     return (
       <>
         <label className="input-label" htmlFor="pin">
@@ -73,10 +75,11 @@ class LoginForm extends Component {
 
   renderUseridField = () => {
     const {userid} = this.state
+    console.log(userid)
     return (
       <>
         <label className="input-label" htmlFor="userid">
-          USERID
+          User ID
         </label>
         <input
           type="text"
@@ -103,7 +106,7 @@ class LoginForm extends Component {
           alt="website login"
         />
         <form className="form-container" onSubmit={this.submitForm}>
-          <h1>Welcome, Back!</h1>
+          <h1>Welcome Back</h1>
           <div className="input-container">{this.renderUseridField()}</div>
           <div className="input-container">{this.renderPinField()}</div>
           <button type="submit" className="login-button">
